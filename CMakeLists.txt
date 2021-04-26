@@ -3,4 +3,4 @@ project(SoftwareProject2 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(SoftwareProject2 main.c othelloLib.h)
+add_executable(SoftwareProject2 main.c othelloLib.h othelloLib.c)

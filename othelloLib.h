@@ -1,8 +1,7 @@
-//
-// Created by meagh on 26/04/2021.
-//
 
 #ifndef SOFTWAREPROJECT2_OTHELLOLIB_H
 #define SOFTWAREPROJECT2_OTHELLOLIB_H
+
+void printBoard(void);
 
 #endif //SOFTWAREPROJECT2_OTHELLOLIB_H
