@@ -11,10 +11,12 @@ typedef struct {
 }player;
 
 typedef struct {
-    char colour[8][8]; //holds the state of every tile on board
+    char board[8][8]; //holds the state of every tile on board
+    player* currentPlayer; //points to current player
     player *nextPlayer; //points to next player
-}board;
+}game;
 
-void printBoard(board*, player*);
+void printBoard(game*);
+void endReport(player*, player*);
 
 #endif //SOFTWAREPROJECT2_OTHELLOLIB_H
