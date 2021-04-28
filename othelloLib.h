@@ -1,7 +1,20 @@
 
 #ifndef SOFTWAREPROJECT2_OTHELLOLIB_H
 #define SOFTWAREPROJECT2_OTHELLOLIB_H
+#define MAX_STR_LEN 20
 
-void printBoard(void);
+typedef struct {
+    char colour; //'B' and 'W' for placing their tokens on board
+    char team[6]; //"Black" for player1 and "White" for player2
+    int score;
+    char name[MAX_STR_LEN+1];
+}player;
+
+typedef struct {
+    char colour[8][8]; //holds the state of every tile on board
+    player *nextPlayer; //points to next player
+}board;
+
+void printBoard(board*, player*);
 
 #endif //SOFTWAREPROJECT2_OTHELLOLIB_H

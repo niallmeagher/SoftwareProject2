@@ -3,19 +3,6 @@
 #include "othelloLib.h"
 #define MAX_STR_LEN 20
 
-typedef struct {
-    char colour; //'B' and 'W' for placing their tokens on board
-    char team[6]; //"Black" for player1 and "White" for player2
-    int score;
-    char name[MAX_STR_LEN+1];
-}player;
-
-typedef struct {
-    char colour[8][8]; //holds the state of every tile on board
-    player *nextPlayer; //points to next player
-}board;
-
-
 int main() {
     //Initialise gameBoard and stats for p1 & p2
     player p1 = {'B', "Black", 2, ""};
@@ -44,7 +31,9 @@ int main() {
     fgets(p2.name, MAX_STR_LEN, stdin); //Assign name to p2
 
     player *currentPlayer = &p1; //Assign current player to a pointer
+    board *boardPtr = &gameBoard; //Pointer to our board for use in functions
 
+    printBoard(boardPtr, currentPlayer);
 
     return 0;
 }
