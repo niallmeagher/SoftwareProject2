@@ -20,7 +20,7 @@ typedef struct {
 }game;
 
 void printBoard(game*);
-bool isValid(game*, int i, int j);
+bool isValid(game*, int i, int j, char[3]);
 bool validMoves(game*);
 void endReport(player*, player*);
 
