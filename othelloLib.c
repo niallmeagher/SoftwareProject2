@@ -53,6 +53,128 @@ void printBoard(game* othello)
     printf("\n\n");
 }
 
+bool isValid(game *othello, int i, int j) //Functions checks for a valid move from the tile board[i][j]
+{
+    int r, c;
+    if(othello->board[i][j]=='N') //New tokens can only be placed on neutral tiles
+    {
+        //We check for a valid move in all 8 directions
+        if(othello->board[i-1][j]==othello->nextPlayer->colour)//North
+        {
+            r = i-1;
+            c = j;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && r>0) //tracing a straight line until friendly or neutral tile is reached
+                r--;
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true; //can return true immediately after a single valid move is found
+        }
+
+        if(othello->board[i-1][j+1]==othello->nextPlayer->colour)//North-East
+        {
+            r = i-1;
+            c = j+1;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && r>0 && c<7)
+            {
+                r--;
+                c++;
+            }
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+
+        if(othello->board[i][j+1]==othello->nextPlayer->colour)//East
+        {
+            r = i;
+            c = j+1;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && c<7)
+                c++;
+
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+
+        if(othello->board[i+1][j+1]==othello->nextPlayer->colour)//South-East
+        {
+            r = i+1;
+            c = j+1;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && r>8 && c<7)
+            {
+                r++;
+                c++;
+            }
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+
+        if(othello->board[i+1][j]==othello->nextPlayer->colour)//South
+        {
+            r = i+1;
+            c = j;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && r>0 && c<7)
+                r++;
+
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+
+        if(othello->board[i+1][j-1]==othello->nextPlayer->colour)//South-West
+        {
+            r = i+1;
+            c = j-1;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && r>8 && c<0)
+            {
+                r++;
+                c--;
+            }
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+
+        if(othello->board[i][j-1]==othello->nextPlayer->colour)//West
+        {
+            r = i;
+            c = j-1;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && c<0)
+                c--;
+
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+
+        if(othello->board[i-1][j-1]==othello->nextPlayer->colour)//North-East
+        {
+            r = i-1;
+            c = j-1;
+            while((othello->board[r][c]==othello->nextPlayer->colour) && r>0 && c<0)
+            {
+                r--;
+                c--;
+            }
+            if(othello->board[r][c]==othello->currentPlayer->colour)
+                return true;
+        }
+    }
+    return false; //Returns false if there are no valid moves from this tile
+}
+
+bool validMoves(game* othello) //Returns false if there are no valid moves for current player
+{
+    int i,j;
+
+    for(i=0;i<8;i++)
+    {
+        for(j=0;j<8;j++)
+        {
+            if(isValid(othello, i,j))
+                return true; //Function returns true as soon as a valid move is found
+        }
+    }
+
+    return false; //This only triggers if there are no valid moves in any direction from any tile for current player
+}
+
+
+
 void endReport(player* winner, player* loser)
 {
     FILE *report;

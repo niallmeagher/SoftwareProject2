@@ -1,6 +1,9 @@
 
 #ifndef SOFTWAREPROJECT2_OTHELLOLIB_H
 #define SOFTWAREPROJECT2_OTHELLOLIB_H
+
+#include <stdbool.h>
+
 #define MAX_STR_LEN 20
 
 typedef struct {
@@ -17,6 +20,8 @@ typedef struct {
 }game;
 
 void printBoard(game*);
+bool isValid(game*, int i, int j);
+bool validMoves(game*);
 void endReport(player*, player*);
 
 #endif //SOFTWAREPROJECT2_OTHELLOLIB_H
