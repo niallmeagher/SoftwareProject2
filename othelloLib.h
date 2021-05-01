@@ -20,8 +20,9 @@ typedef struct {
 }game;
 
 void printBoard(game*);
-bool isValid(game*, int i, int j, char[3]);
+bool isValid(game*, int, int, char[3]);
 bool validMoves(game*);
+void move(game*, int, int);
 void endReport(player*, player*);
 
 #endif //SOFTWAREPROJECT2_OTHELLOLIB_H

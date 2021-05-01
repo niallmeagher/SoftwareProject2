@@ -65,8 +65,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
             {
                 r = i - 1;
                 c = j;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) &&
-                       r > 0) //tracing a straight line until friendly or neutral tile is reached
+                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0) //tracing a straight line until friendly or neutral tile is reached
                     r--;
                 if (othello->board[r][c] == othello->currentPlayer->colour)
                     return true; //can return true immediately after a single valid move is found
@@ -194,7 +193,108 @@ bool validMoves(game* othello) //Returns false if there are no valid moves for c
     return false; //This only triggers if there are no valid moves in any direction from any tile for current player
 }
 
+void move(game* othello, int i, int j) //Effects the move player has inputted provided it is valid
+{
+    othello->board[i][j] = othello->currentPlayer->colour; //Place token on board
+    othello->currentPlayer->score++; //Placing the token increases the player's score
+    //Now see if score is changed for each direction
+    int r, c;
+    if(isValid(othello, i, j, "N"))  //North
+    {
+        r = i - 1;
+        c = j;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r--][c] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
 
+    if(isValid(othello, i, j, "NE")) //North-East
+    {
+        r = i - 1;
+        c = j + 1;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r--][c++] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+
+    if(isValid(othello, i, j, "E")) //East
+    {
+        r = i;
+        c = j + 1;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r][c++] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+
+    if(isValid(othello, i, j, "SE")) //South-East
+    {
+        r = i + 1;
+        c = j + 1;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r++][c++] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+
+    if(isValid(othello, i, j, "S")) //South
+    {
+        r = i + 1;
+        c = j;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r++][c] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+
+    if(isValid(othello, i, j, "SW")) //South-West
+    {
+        r = i + 1;
+        c = j - 1;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r++][c--] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+
+    if(isValid(othello, i, j, "W")) //West
+    {
+        r = i;
+        c = j - 1;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r][c--] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+
+    if(isValid(othello, i, j, "NW")) //North-West
+    {
+        r = i - 1;
+        c = j - 1;
+        while (othello->board[r][c] == othello->nextPlayer->colour)
+        {
+            othello->board[r--][c--] = othello->currentPlayer->colour; //Flip the token
+            othello->currentPlayer->score++; //increment current player's score
+            othello->nextPlayer->score--;//decrement opposing player's score
+        }
+    }
+}
 
 void endReport(player* winner, player* loser)
 {
