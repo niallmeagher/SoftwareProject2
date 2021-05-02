@@ -8,5 +8,5 @@
     - to determine this, the program takes the coordinates of the desired tile and searches in all 8 directions extending from that tile as the origin.
     - for each direction, if the adjacent tile holds an enemy token, it checks the next tile along that line for an enemy token, until it reaches the end of the "string" of enemy tokens
         - if the sequence-ending tile holds a friendly token, then the enemy tokens are enclosed and the move is valid
-        - if the sequence-ending tile is empty or the edge of the board is reached, then that move is invalid
-    -Once a move has been validated in at least one direction, the program checks validity in each individual direction. For each direction the move is valid in, the program stars back at the origin and traces along that line again, this time turning over all enemy tokens to friendly tokens until the enclosing friendly token is reached.
+        - if the sequence-ending tile is empty or the edge of the board is reached, then that move is invalid.
+    - Once a move has been validated in at least one direction, the program checks validity in each individual direction. For each direction the move is valid in, the program stars back at the origin and traces along that line again, this time turning over all enemy tokens to friendly tokens until the enclosing friendly token is reached.
