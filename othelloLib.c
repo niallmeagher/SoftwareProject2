@@ -324,13 +324,23 @@ void endReport(player* player1, player* player2) //Prints final result to txt fi
                 matchTime->tm_hour, matchTime->tm_min, matchTime->tm_sec, player1->name,  player1->score, player2->score, player2->name);
 
         if(player1->score > player2->score) //Player 1 wins
-            fprintf(report, "%s wins!\n", player1->name);
+        {
+            fprintf(report, "%s wins!\n", player1->name); //Write to file
+            printf("%s wins!\n", player1->name);         //Display winner on screen
+        }
+
 
         else if(player2->score > player1->score) //Player 2 wins
-            fprintf(report, "%s wins!\n", player2->name);
+        {
+            fprintf(report, "%s wins!\n", player2->name); //Write to file
+            printf("%s wins!\n", player2->name);         //Display winner on screen
+        }
 
         else //Or else the game is a tie
+        {
             fprintf(report, "%s and %s tie!\n", player1->name, player2->name);
+            printf("%s and %s tie!\n", player1->name, player2->name);
+        }
 
         printf("Report complete!\n");
         fclose(report);
