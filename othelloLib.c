@@ -63,8 +63,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
         if (othello->board[i - 1][j] == othello->nextPlayer->colour) {
             r = i - 1;
             c = j;
-            while ((othello->board[r][c] == othello->nextPlayer->colour) &&
-                   r > 0) //tracing a straight line until friendly or neutral tile is reached
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0) //tracing a straight line until friendly or neutral tile is reached
                 r--;
             if (othello->board[r][c] == othello->currentPlayer->colour)
                 return true; //can return true immediately after a single valid move is found
@@ -106,7 +105,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
         {
             r = i + 1;
             c = j + 1;
-            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 8 && c < 7)
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r < 7 && c < 7)
             {
                 r++;
                 c++;
@@ -122,7 +121,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
         {
             r = i + 1;
             c = j;
-            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 7)
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r < 7)
                 r++;
 
             if (othello->board[r][c] == othello->currentPlayer->colour)
@@ -136,7 +135,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
         {
             r = i + 1;
             c = j - 1;
-            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 8 && c < 0) {
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r < 7 && c > 0) {
                 r++;
                 c--;
             }
@@ -151,7 +150,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
         {
             r = i;
             c = j - 1;
-            while ((othello->board[r][c] == othello->nextPlayer->colour) && c < 0)
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && c > 0)
                 c--;
 
             if (othello->board[r][c] == othello->currentPlayer->colour)
@@ -165,7 +164,7 @@ bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks 
         {
             r = i - 1;
             c = j - 1;
-            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 0) {
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c > 0) {
                 r--;
                 c--;
             }
@@ -321,17 +320,17 @@ void endReport(player* player1, player* player2) //Prints final result to txt fi
         struct tm *matchTime = localtime(&now); //Convert to calendar time
 
         //print to file
-        fprintf(report, "%02d/%02d/%d\t%02d:%02d:%02d\t%s %d:%d %s", matchTime->tm_mday, matchTime->tm_mon+1, matchTime->tm_year+1900,
+        fprintf(report, "%02d/%02d/%d\t%02d:%02d:%02d\t%s %d:%d %s\t\t", matchTime->tm_mday, matchTime->tm_mon+1, matchTime->tm_year+1900,
                 matchTime->tm_hour, matchTime->tm_min, matchTime->tm_sec, player1->name,  player1->score, player2->score, player2->name);
 
         if(player1->score > player2->score) //Player 1 wins
-            fprintf(report, "\t%s wins!\n", player1->name);
+            fprintf(report, "%s wins!\n", player1->name);
 
         else if(player2->score > player1->score) //Player 2 wins
-            fprintf(report, "\t%s wins!\n", player2->name);
+            fprintf(report, "%s wins!\n", player2->name);
 
         else //Or else the game is a tie
-            fprintf(report, "\t%s and %s tie!\n", player1->name, player2->name);
+            fprintf(report, "%s and %s tie!\n", player1->name, player2->name);
 
         printf("Report complete!\n");
         fclose(report);
