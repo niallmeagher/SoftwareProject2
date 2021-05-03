@@ -23,6 +23,7 @@ void printBoard(game*);
 bool isValid(game*, int, int, char[3]);
 bool validMoves(game*);
 void move(game*, int, int);
+void playerSwap(game*);
 void endReport(player*, player*);
 
 #endif //SOFTWAREPROJECT2_OTHELLOLIB_H

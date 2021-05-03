@@ -56,122 +56,121 @@ void printBoard(game* othello)
 bool isValid(game *othello, int i, int j, char direction[3]) //Functions checks for a valid move from the tile board[i][j]
 {
     int r, c;
-    if(othello->board[i][j]=='N') //New tokens can only be placed on neutral tiles
+
+    //We check for a valid move in all 8 directions
+    if(strcmp(direction,"A")==0 || strcmp(direction, "N")==0) //North
     {
-        //We check for a valid move in all 8 directions
-        if(strcmp(direction,"A")==0 || strcmp(direction, "N")==0)
-        {
-            if (othello->board[i - 1][j] == othello->nextPlayer->colour)//North
-            {
-                r = i - 1;
-                c = j;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0) //tracing a straight line until friendly or neutral tile is reached
-                    r--;
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true; //can return true immediately after a single valid move is found
-            }
+        if (othello->board[i - 1][j] == othello->nextPlayer->colour) {
+            r = i - 1;
+            c = j;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) &&
+                   r > 0) //tracing a straight line until friendly or neutral tile is reached
+                r--;
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true; //can return true immediately after a single valid move is found
+
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "NE")==0)
-        {
-            if (othello->board[i - 1][j + 1] == othello->nextPlayer->colour)//North-East
-            {
-                r = i - 1;
-                c = j + 1;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 7) {
-                    r--;
-                    c++;
-                }
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
+    if(strcmp(direction,"A")==0 || strcmp(direction, "NE")==0) //North-East
+    {
+        if (othello->board[i - 1][j + 1] == othello->nextPlayer->colour) {
+            r = i - 1;
+            c = j + 1;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 7) {
+                r--;
+                c++;
             }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "E")==0)
+    if(strcmp(direction,"A")==0 || strcmp(direction, "E")==0) //East
+    {
+        if (othello->board[i][j + 1] == othello->nextPlayer->colour)
         {
-            if (othello->board[i][j + 1] == othello->nextPlayer->colour)//East
-            {
-                r = i;
-                c = j + 1;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && c < 7)
-                    c++;
+            r = i;
+            c = j + 1;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && c < 7)
+                c++;
 
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
-            }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "SE")==0)
+    if(strcmp(direction,"A")==0 || strcmp(direction, "SE")==0) //South-East
+    {
+        if (othello->board[i + 1][j + 1] == othello->nextPlayer->colour)
         {
-            if (othello->board[i + 1][j + 1] == othello->nextPlayer->colour)//South-East
+            r = i + 1;
+            c = j + 1;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 8 && c < 7)
             {
-                r = i + 1;
-                c = j + 1;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 8 && c < 7) {
-                    r++;
-                    c++;
-                }
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
+                r++;
+                c++;
             }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "S")==0)
+    if(strcmp(direction,"A")==0 || strcmp(direction, "S")==0) //South
+    {
+        if (othello->board[i + 1][j] == othello->nextPlayer->colour)
         {
-            if (othello->board[i + 1][j] == othello->nextPlayer->colour)//South
-            {
-                r = i + 1;
-                c = j;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 7)
-                    r++;
+            r = i + 1;
+            c = j;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 7)
+                r++;
 
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
-            }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "SW")==0)
+    if(strcmp(direction,"A")==0 || strcmp(direction, "SW")==0) //South-West
+    {
+        if (othello->board[i + 1][j - 1] == othello->nextPlayer->colour)
         {
-            if (othello->board[i + 1][j - 1] == othello->nextPlayer->colour)//South-West
-            {
-                r = i + 1;
-                c = j - 1;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 8 && c < 0) {
-                    r++;
-                    c--;
-                }
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
+            r = i + 1;
+            c = j - 1;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 8 && c < 0) {
+                r++;
+                c--;
             }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "W")==0)
+    if(strcmp(direction,"A")==0 || strcmp(direction, "W")==0) //West
+    {
+        if (othello->board[i][j - 1] == othello->nextPlayer->colour)
         {
-            if (othello->board[i][j - 1] == othello->nextPlayer->colour)//West
-            {
-                r = i;
-                c = j - 1;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && c < 0)
-                    c--;
+            r = i;
+            c = j - 1;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && c < 0)
+                c--;
 
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
-            }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
+    }
 
-        if(strcmp(direction,"A")==0 || strcmp(direction, "NW")==0)
+    if(strcmp(direction,"A")==0 || strcmp(direction, "NW")==0) //North-West
+    {
+        if (othello->board[i - 1][j - 1] == othello->nextPlayer->colour)
         {
-            if (othello->board[i - 1][j - 1] == othello->nextPlayer->colour)//North-West
-            {
-                r = i - 1;
-                c = j - 1;
-                while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 0) {
-                    r--;
-                    c--;
-                }
-                if (othello->board[r][c] == othello->currentPlayer->colour)
-                    return true;
+            r = i - 1;
+            c = j - 1;
+            while ((othello->board[r][c] == othello->nextPlayer->colour) && r > 0 && c < 0) {
+                r--;
+                c--;
             }
+            if (othello->board[r][c] == othello->currentPlayer->colour)
+                return true;
         }
     }
     return false; //Returns false if there are no valid moves from this tile
@@ -185,7 +184,7 @@ bool validMoves(game* othello) //Returns false if there are no valid moves for c
     {
         for(j=0;j<8;j++)
         {
-            if(isValid(othello, i,j, "A"))
+            if(othello->board[i][j]=='N' && isValid(othello, i,j, "A"))
                 return true; //Function returns true as soon as a valid move is found
         }
     }
@@ -296,7 +295,14 @@ void move(game* othello, int i, int j) //Effects the move player has inputted pr
     }
 }
 
-void endReport(player* winner, player* loser)
+void playerSwap(game* othello) //Swaps next player to current player and current player to next player
+{
+    player* tmp = othello->currentPlayer;
+    othello->currentPlayer = othello->nextPlayer;
+    othello->nextPlayer = tmp;
+}
+
+void endReport(player* player1, player* player2) //Prints final result to txt file
 {
     FILE *report;
 
@@ -315,8 +321,18 @@ void endReport(player* winner, player* loser)
         struct tm *matchTime = localtime(&now); //Convert to calendar time
 
         //print to file
-        fprintf(report, "%02d/%02d/%d\t%02d:%02d:%02d\t%s beat %s %d:%d\n", matchTime->tm_mday, matchTime->tm_mon+1, matchTime->tm_year+1900,
-                matchTime->tm_hour, matchTime->tm_min, matchTime->tm_sec, winner->name, loser->name, winner->score, loser->score);
+        fprintf(report, "%02d/%02d/%d\t%02d:%02d:%02d\t%s %d:%d %s", matchTime->tm_mday, matchTime->tm_mon+1, matchTime->tm_year+1900,
+                matchTime->tm_hour, matchTime->tm_min, matchTime->tm_sec, player1->name,  player1->score, player2->score, player2->name);
+
+        if(player1->score > player2->score) //Player 1 wins
+            fprintf(report, "\t%s wins!\n", player1->name);
+
+        else if(player2->score > player1->score) //Player 2 wins
+            fprintf(report, "\t%s wins!\n", player2->name);
+
+        else //Or else the game is a tie
+            fprintf(report, "\t%s and %s tie!\n", player1->name, player2->name);
+
         printf("Report complete!\n");
         fclose(report);
     }
